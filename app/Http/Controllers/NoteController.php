@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -14,8 +15,11 @@ class NoteController extends Controller
      */
     public function index()
     {
+        if(!$user = Auth::user()){
+            return redirect()->route('home');
+        }
         // recuperar todas las notas
-        $notes = Note::all();
+        $notes = $user->notes;
         // pasarlas  a la vista y devolver la vista
         return view('notes',compact('notes'));
 
@@ -28,6 +32,10 @@ class NoteController extends Controller
      */
     public function create()
     {
+        if(!$user = Auth::user()){
+            return redirect()->route('home');
+        }
+        
         return view('notes-create');
     }
 
@@ -39,11 +47,17 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
+        if(!$user = Auth::user()){
+            return redirect()->route('home');
+        }
+        
         $validatedData = $request->validate([
             'text'=>'required|min:3|max:500'
         ]);
 
-        Note::create($validatedData);
+        // Note::create($validatedData);
+
+        $user->notes()->create($validatedData);
 
         return redirect()->route('home');
     }
@@ -56,8 +70,18 @@ class NoteController extends Controller
      */
     public function show($id)
     {
+        // si no estas autentificado
+        if(!$user = Auth::user()){
+            return redirect()->route('home');
+        }
         // recuperar la nota con id $id
         $note = Note::findOrFail($id);
+
+        // si el id del usuario autentificado no corresponde con el id del usuario asociado a esa nota
+        // significa que no es el creador y pues no la puede ver
+        if($user->id != $note->user_id){
+            return redirect()->route('home');
+        }
 
         return view('note-detail',compact('note'));
     }
@@ -70,8 +94,15 @@ class NoteController extends Controller
      */
     public function edit($id)
     {
+        if(!$user = Auth::user()){
+            return redirect()->route('home');
+        }
         // recuperar la nota con id $id
         $note = Note::findOrFail($id);
+
+        if($user->id != $note->user_id){
+            return redirect()->route('home');
+        }
 
         return view('notes-edit',compact('note'));
     }
@@ -85,11 +116,20 @@ class NoteController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!$user = Auth::user()){
+            return redirect()->route('home');
+        }
+
         $validatedData = $request->validate([
             'text'=>'required|min:3|max:500'
         ]);
         // recuperar la nota que quiero modificar
         $note = Note::findOrFail($id);
+
+        if($user->id != $note->user_id){
+            return redirect()->route('home');
+        }
+
         // actualizar el db con los nuevos datos
         $note->update($validatedData);
         
@@ -105,8 +145,15 @@ class NoteController extends Controller
      */
     public function destroy($id)
     {
+        if(!$user = Auth::user()){
+            return redirect()->route('home');
+        }
         // recuperar la nota con id $id
         $note = Note::findOrFail($id);
+
+        if($user->id != $note->user_id){
+            return redirect()->route('home');
+        }
 
         // elminar la nota
         $note->delete();

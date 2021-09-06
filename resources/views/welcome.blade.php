@@ -6,7 +6,4 @@
             <h2>Las ultimas notas</h2>
         </div>
     </div>
-    <div class="row">
-        @include('layouts._notes')
-    </div>
 @endsection
