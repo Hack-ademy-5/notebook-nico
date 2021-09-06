@@ -11,6 +11,7 @@
     <title>Notebook</title>
   </head>
   <body>
+    @include('layouts._nav')
     <div class="container">
         @yield('content')
     </div>

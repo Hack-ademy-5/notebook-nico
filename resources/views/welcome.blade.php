@@ -2,7 +2,8 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            Home
+            <h1>Notebook, para que no te pierdas nada</h1>
+            <h2>Las ultimas notas</h2>
         </div>
     </div>
 @endsection

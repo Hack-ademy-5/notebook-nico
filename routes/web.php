@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PublicController::class,'home'])->name('home');
+
+// ruta para enseñar el formulario
+Route::get('notes-create',[NoteController::class,'create'])->name('notes.create');
+// gestionar los datos recibidos
+Route::post('notes',[NoteController::class,'store'])->name('notes.store');
