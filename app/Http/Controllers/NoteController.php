@@ -54,9 +54,12 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function show(Note $note)
+    public function show($id)
     {
-        //
+        // recuperar la nota con id $id
+        $note = Note::findOrFail($id);
+
+        return view('note-detail',compact('note'));
     }
 
     /**

@@ -17,10 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class,'home'])->name('home');
 
+// CREATE
 // ruta para enseñar el formulario
 Route::get('notes-create',[NoteController::class,'create'])->name('notes.create');
 // gestionar los datos recibidos
 Route::post('notes',[NoteController::class,'store'])->name('notes.store');
 
+// READ
+// read all
 // leer todas las notas
 Route::get('notes',[NoteController::class,'index'])->name('notes.index');
+// read one
+// leer una nota
+Route::get('notes/{id}',[NoteController::class,'show'])->name('notes.show');
+
