@@ -14,7 +14,11 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        // recuperar todas las notas
+        $notes = Note::all();
+        // pasarlas  a la vista y devolver la vista
+        return view('notes',compact('notes'));
+
     }
 
     /**

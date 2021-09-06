@@ -21,3 +21,6 @@ Route::get('/', [PublicController::class,'home'])->name('home');
 Route::get('notes-create',[NoteController::class,'create'])->name('notes.create');
 // gestionar los datos recibidos
 Route::post('notes',[NoteController::class,'store'])->name('notes.store');
+
+// leer todas las notas
+Route::get('notes',[NoteController::class,'index'])->name('notes.index');
