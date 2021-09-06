@@ -36,3 +36,6 @@ Route::get('notes/{id}',[NoteController::class,'show'])->name('notes.show');
 Route::get('notes-edit/{id}',[NoteController::class,'edit'])->name('notes.edit');
 // ruta para gestionar los datos recibidos
 Route::put('notes/{id}',[NoteController::class,'update'])->name('notes.update');
+
+// DELETE
+Route::delete('notes/{id}',[NoteController::class,'destroy'])->name('notes.destroy');

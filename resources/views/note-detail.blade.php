@@ -10,6 +10,11 @@
             <p>{{$note->text}}</p>
             <h5>Creada el: {{$note->created_at}}</h5>
             <a href="{{route('notes.edit',['id'=>$note->id])}}" class="btn btn-warning">Edit</a>
+            <form action="{{route('notes.destroy',['id'=>$note->id])}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
         </div>
     </div>
 @endsection
