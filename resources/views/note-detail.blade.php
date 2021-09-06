@@ -9,6 +9,7 @@
         <div class="col-12 col-md-4 offset-md-4">
             <p>{{$note->text}}</p>
             <h5>Creada el: {{$note->created_at}}</h5>
+            <a href="{{route('notes.edit',['id'=>$note->id])}}" class="btn btn-warning">Edit</a>
         </div>
     </div>
 @endsection

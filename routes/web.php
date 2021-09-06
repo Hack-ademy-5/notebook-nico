@@ -31,3 +31,8 @@ Route::get('notes',[NoteController::class,'index'])->name('notes.index');
 // leer una nota
 Route::get('notes/{id}',[NoteController::class,'show'])->name('notes.show');
 
+// UPDATE
+// ruta para enseñar el formulario de modificación
+Route::get('notes-edit/{id}',[NoteController::class,'edit'])->name('notes.edit');
+// ruta para gestionar los datos recibidos
+Route::put('notes/{id}',[NoteController::class,'update'])->name('notes.update');

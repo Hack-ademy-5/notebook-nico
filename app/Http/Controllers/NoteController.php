@@ -68,9 +68,12 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function edit(Note $note)
+    public function edit($id)
     {
-        //
+        // recuperar la nota con id $id
+        $note = Note::findOrFail($id);
+
+        return view('notes-edit',compact('note'));
     }
 
     /**
@@ -80,9 +83,18 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Note $note)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'text'=>'required|min:3|max:500'
+        ]);
+        // recuperar la nota que quiero modificar
+        $note = Note::findOrFail($id);
+        // actualizar el db con los nuevos datos
+        $note->update($validatedData);
+        
+        // salir con un redirect
+        return redirect()->route('notes.show',['id'=>$id]);
     }
 
     /**
